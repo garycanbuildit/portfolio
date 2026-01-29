@@ -35,11 +35,17 @@ export default function ChatbotDemo() {
     setScrapedContent(null);
     setMessages([]);
 
+    // Add https:// if not present
+    let formattedUrl = url.trim();
+    if (!formattedUrl.match(/^https?:\/\//i)) {
+      formattedUrl = `https://${formattedUrl}`;
+    }
+
     try {
       const response = await fetch("/api/scrape", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: formattedUrl }),
       });
 
       const data = await response.json();
@@ -49,11 +55,11 @@ export default function ChatbotDemo() {
       }
 
       setScrapedContent(data.content);
-      setScrapedUrl(url);
+      setScrapedUrl(formattedUrl);
       setMessages([
         {
           role: "assistant",
-          content: `Hello! I'm a representative from **${new URL(url).hostname}**. I've analyzed our website and I'm here to help answer your questions about our company, products, services, or anything else you'd like to know. How can I assist you today?`,
+          content: `Hey there! Thanks for visiting **${new URL(formattedUrl).hostname}**. I just got up to speed on everything about our company, and I'm excited to chat with you! Whether you want to know what we do, how we can help, or just have general questions - I'm all ears. What's on your mind?`,
         },
       ]);
     } catch (err) {
@@ -126,10 +132,10 @@ export default function ChatbotDemo() {
           <form onSubmit={handleScrape} className="w-full max-w-lg">
             <div className="flex gap-2">
               <input
-                type="url"
+                type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://example.com"
+                placeholder="example.com or https://example.com"
                 className="flex-1 px-4 py-3 bg-surface-light border border-surface-light rounded-lg focus:outline-none focus:border-accent transition-colors"
                 required
               />
@@ -158,7 +164,7 @@ export default function ChatbotDemo() {
           )}
 
           <p className="mt-6 text-muted text-sm">
-            Try: https://anthropic.com or any public website
+            Try: anthropic.com, stripe.com, or any public website
           </p>
         </div>
       ) : (
