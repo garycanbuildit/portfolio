@@ -56,10 +56,11 @@ export default function ChatbotDemo() {
 
       setScrapedContent(data.content);
       setScrapedUrl(formattedUrl);
+      const hostname = new URL(formattedUrl).hostname.replace(/^www\./, '');
       setMessages([
         {
           role: "assistant",
-          content: `Hey there! Thanks for visiting **${new URL(formattedUrl).hostname}**. I just got up to speed on everything about our company, and I'm excited to chat with you! Whether you want to know what we do, how we can help, or just have general questions - I'm all ears. What's on your mind?`,
+          content: `Hey, thanks for visiting **${hostname}**! How can I help you today?`,
         },
       ]);
     } catch (err) {
