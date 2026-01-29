@@ -53,7 +53,7 @@ export default function ChatbotDemo() {
       setMessages([
         {
           role: "assistant",
-          content: `I've analyzed the content from **${url}**. I can now answer questions about this website. What would you like to know?`,
+          content: `Hello! I'm a representative from **${new URL(url).hostname}**. I've analyzed our website and I'm here to help answer your questions about our company, products, services, or anything else you'd like to know. How can I assist you today?`,
         },
       ]);
     } catch (err) {
@@ -117,9 +117,9 @@ export default function ChatbotDemo() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Website Chat Assistant</h3>
+            <h3 className="text-xl font-semibold mb-2">AI Business Representative</h3>
             <p className="text-muted max-w-md">
-              Enter any website URL and I&apos;ll analyze its content. Then you can ask me questions about it!
+              Enter any website URL and I&apos;ll become a virtual representative for that business. I&apos;ll crawl their site and answer questions as if I work there!
             </p>
           </div>
 
