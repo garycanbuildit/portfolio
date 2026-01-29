@@ -60,7 +60,7 @@ export default function ChatbotDemo() {
       setMessages([
         {
           role: "assistant",
-          content: `Hey, thanks for visiting **${hostname}**! How can I help you today?`,
+          content: `Hey, thanks for visiting ${hostname}! How can I help you today?`,
         },
       ]);
     } catch (err) {
