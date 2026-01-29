@@ -26,6 +26,24 @@ export default function ChatbotDemo() {
     scrollToBottom();
   }, [messages]);
 
+  const formatBusinessName = (hostname: string): string => {
+    // Remove www. and domain extension
+    let name = hostname.replace(/^www\./, '').split('.')[0];
+
+    // Split camelCase or PascalCase: oystercreekdentistry -> oyster creek dentistry
+    name = name.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+    // Split on common separators
+    name = name.replace(/[-_]/g, ' ');
+
+    // Capitalize each word
+    name = name.split(' ').map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    ).join(' ');
+
+    return name;
+  };
+
   const handleScrape = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!url.trim()) return;
@@ -56,11 +74,11 @@ export default function ChatbotDemo() {
 
       setScrapedContent(data.content);
       setScrapedUrl(formattedUrl);
-      const hostname = new URL(formattedUrl).hostname.replace(/^www\./, '');
+      const businessName = formatBusinessName(new URL(formattedUrl).hostname);
       setMessages([
         {
           role: "assistant",
-          content: `Hey, thanks for visiting ${hostname}! How can I help you today?`,
+          content: `Hey, thanks for visiting ${businessName}! How can I help you today?`,
         },
       ]);
     } catch (err) {
